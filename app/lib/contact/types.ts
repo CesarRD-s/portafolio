@@ -1,6 +1,6 @@
-export interface ContactDto {
+export interface ContactPayload {
     name: string
     email: string
     message: string
-    company?: string
 }
+

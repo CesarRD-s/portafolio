@@ -1,11 +1,11 @@
 'use client'
 
-import { Skill } from "@/app/modules/user_public/user.model"
+import type { PortfolioSkill } from '@/app/lib/portfolio/types'
 import Image from "next/image"
 import { useMemo, useState } from "react"
 
 type Props = {
-    skills: Skill[]
+    skills: PortfolioSkill[]
 }
 
 type SkillFilter = "all" | string

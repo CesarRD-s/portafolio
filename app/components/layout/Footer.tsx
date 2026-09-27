@@ -1,91 +1,91 @@
-'use client'
-
 import Link from 'next/link'
+import Image from 'next/image'
 import { SiGithub } from 'react-icons/si'
 import { FaLinkedin } from 'react-icons/fa6'
 import { Mail, Phone } from 'lucide-react'
-import { User } from '@/app/modules/user_public/user.model'
+import type { PortfolioContent } from '@/app/lib/portfolio/types'
 
 const iconMap = {
     email: Mail,
     phone: Phone,
     github: SiGithub,
-    linkedin: FaLinkedin
+    linkedin: FaLinkedin,
 }
 
 type Props = {
-    user: User
+    portfolio: PortfolioContent
 }
 
-export function Footer({ user }: Props) {
-    const { contacts } = user
-
-    const contactInfo = contacts.filter(c => c.category === 'direct')
-    const socialInfo = contacts.filter(c => c.category === 'social')
+export function Footer({ portfolio }: Props) {
+    const contactInfo = portfolio.contacts.filter(contact => contact.category === 'direct')
+    const socialInfo = portfolio.contacts.filter(contact => contact.category === 'social')
 
     return (
-        <footer className="w-full border-t border-neutral-200/60 dark:border-neutral-800/60 bg-white/60 dark:bg-neutral-900/60 backdrop-blur-md">
-
-            <div className="max-w-7xl mx-auto px-6 md:px-8 py-16 grid gap-12 md:grid-cols-3">
-
-                {/* BRAND */}
+        <footer className="w-full bg-white/60 dark:bg-neutral-900/60">
+            <div className="mx-auto grid max-w-7xl gap-12 px-6 py-10 md:grid-cols-3 md:px-8">
                 <div className="flex flex-col gap-3">
-                    <h3 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white">
-                        CésarDev
-                    </h3>
+                    <div className="flex items-center gap-2">
+                        <div className="relative h-12 w-12">
+                            <Image
+                                src="https://rekydsbimkpqukrlqkbi.supabase.co/storage/v1/object/public/assets/logos/logo-nav.png"
+                                alt="Logo Developer"
+                                fill
+                                sizes="40px"
+                                className="object-contain"
+                            />
+                        </div>
 
-                    <p className="text-sm italic text-neutral-500 dark:text-neutral-400 max-w-xs">
+                        <h3 className="text-lg font-medium tracking-tight text-neutral-900 dark:text-white">
+                            CésarDev
+                        </h3>
+                    </div>
+
+                    <p className="max-w-xs text-sm italic text-neutral-500 dark:text-neutral-400">
                         &quot;Construyendo aplicaciones web modernas con tecnologías de vanguardia.&quot;
                     </p>
 
-                    <div className="flex flex-col gap-1 text-sm text-neutral-500 dark:text-neutral-400">
-                        <span>Tegucigalpa, Honduras</span>
-                    </div>
                 </div>
 
-                {/* CONTACTO */}
                 <div className="flex flex-col gap-4">
-                    <h4 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white">
+                    <h4 className="text-sm font-medium tracking-tight text-neutral-900 dark:text-white">
                         Contacto
                     </h4>
 
                     <ul className="flex flex-col gap-3 text-sm">
                         {contactInfo.map(contact => {
                             const Icon = iconMap[contact.type as keyof typeof iconMap]
-
-                            const href = contact.type === 'email' ? `mailto:${contact.value}`
-                                : contact.type === 'phone' ? `tel:${contact.value.replace(/\s+/g, '')}`
+                            const href = contact.type === 'email'
+                                ? `mailto:${contact.value}`
+                                : contact.type === 'phone'
+                                    ? `tel:${contact.value.replace(/\s+/g, '')}`
                                     : undefined
 
                             return (
                                 <li key={contact.id} className="flex items-start gap-3">
-                                    <div className="flex gap-3">
-                                        <span className="text-neutral-500 dark:text-neutral-400">
-                                            {Icon && <Icon size={16} />}
-                                        </span>
+                                    <span className="text-neutral-500 dark:text-neutral-400" aria-hidden="true">
+                                        {Icon && <Icon size={16} />}
+                                    </span>
 
-                                        {href ? (
-                                            <Link
-                                                href={href}
-                                                className="text-neutral-500 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 transition"
-                                            >
-                                                {contact.value}
-                                            </Link>
-                                        ) : (
-                                            <span className="text-neutral-500 dark:text-neutral-400">
-                                                {contact.value}
-                                            </span>
-                                        )}
-                                    </div>
+                                    {href ? (
+                                        <Link
+                                            href={href}
+                                            className="text-neutral-500 transition hover:text-blue-600 dark:text-neutral-400 dark:hover:text-blue-400"
+                                        >
+                                            {contact.value}
+                                        </Link>
+                                    ) : (
+                                        <span className="text-neutral-500 dark:text-neutral-400">
+                                            {contact.value}
+                                        </span>
+                                    )}
                                 </li>
                             )
                         })}
                     </ul>
                 </div>
 
-                {/* REDES */}
                 <div className="flex flex-col gap-4">
-                    <h4 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white">
+                    <h4 className="text-sm font-medium tracking-tight text-neutral-900 dark:text-white">
                         Redes
                     </h4>
 
@@ -95,35 +95,28 @@ export function Footer({ user }: Props) {
 
                             return (
                                 <li key={contact.id} className="flex items-start gap-3">
-                                    <div className="flex gap-3">
-                                        <span className="text-neutral-500 dark:text-neutral-400">
-                                            {Icon && <Icon size={16} />}
-                                        </span>
+                                    <span className="text-neutral-500 dark:text-neutral-400" aria-hidden="true">
+                                        {Icon && <Icon size={16} />}
+                                    </span>
 
-                                        <Link
-                                            href={contact.linkUrl || '#'}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-neutral-500 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 transition"
-                                        >
-                                            {contact.value}
-                                        </Link>
-                                    </div>
+                                    <Link
+                                        href={contact.linkUrl || '#'}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-neutral-500 transition hover:text-blue-600 dark:text-neutral-400 dark:hover:text-blue-400"
+                                    >
+                                        {contact.value}
+                                    </Link>
                                 </li>
                             )
                         })}
                     </ul>
                 </div>
 
-            </div>
-
-            {/* BOTTOM */}
-            <div className="border-t border-neutral-200 dark:border-neutral-800 py-5 flex justify-center">
-                <p className="text-sm text-center text-neutral-500 dark:text-neutral-400">
-                    &copy; {user.author} {user.year} {" "} &bull; {user.profession} {" "} &bull; Portafolio
+                <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 md:col-span-3">
+                    &copy; {portfolio.author} &bull; Portafolio profesional &bull; {portfolio.year}
                 </p>
             </div>
-
         </footer>
     )
 }

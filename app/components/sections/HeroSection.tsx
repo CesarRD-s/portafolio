@@ -1,14 +1,14 @@
-import { ArrowUp, User as UserIcon } from "lucide-react"
+import { ArrowUp, User as UserIcon } from 'lucide-react'
 import { Section } from "@/app/components/layout/Section"
 import { HashLink } from "@/app/components/layout/HashLink"
-import { User } from "@/app/modules/user_public/user.model"
+import type { PortfolioContent } from '@/app/lib/portfolio/types'
 import Image from 'next/image'
 
 type Props = {
-    user: User
+    portfolio: PortfolioContent
 }
 
-export function HeroView({ user }: Props) {
+export function HeroSection({ portfolio }: Props) {
     return (
         <Section id="home">
             <div className="grid gap-12 md:grid-cols-2 items-center">
@@ -23,17 +23,17 @@ export function HeroView({ user }: Props) {
 
                     {/* TITLE */}
                     <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                        Hola, soy {user.author}
+                        Hola, soy {portfolio.author}
                     </h1>
 
                     {/* SUBTITLE */}
                     <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-200">
-                        {user.profession || 'Desarrollador Fullstack'}
+                        {portfolio.profession || 'Desarrollador Fullstack'}
                     </h2>
 
                     {/* DESCRIPTION */}
                     <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-xl">
-                        {user.tagLine}
+                        {portfolio.tagLine}
                     </p>
 
                     {/* CTA */}

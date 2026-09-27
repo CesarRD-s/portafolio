@@ -1,6 +1,6 @@
 'use client'
 
-import { Skill } from "@/app/modules/user_public/user.model"
+import type { PortfolioSkill } from '@/app/lib/portfolio/types'
 import { Layers3 } from "lucide-react"
 import { useState } from "react"
 import { SkillCard } from "./SkillCard"
@@ -8,7 +8,7 @@ import Image from "next/image"
 import { Button } from "@/app/components/ui/Button"
 
 interface Props {
-    skills: Skill[]
+    skills: PortfolioSkill[]
 }
 
 export function AboutStack({ skills }: Props) {

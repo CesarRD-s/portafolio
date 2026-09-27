@@ -1,15 +1,15 @@
 'use client'
 
 import { useState } from "react";
-import { ContactDto } from "../contact.types";
+import type { ContactPayload } from '@/app/lib/contact/types'
 
 type Status = 'idle' | 'sending' | 'slow' | 'success' | 'error'
 
-export function useContact() {
+export function useContactForm() {
     const [status, setStatus] = useState<Status>('idle')
     const [error, setError] = useState<string | null>(null)
 
-    const send = async (payload: ContactDto): Promise<boolean> => {
+    const send = async (payload: ContactPayload): Promise<boolean> => {
         setStatus('sending')
         setError(null)
 
@@ -27,8 +27,8 @@ export function useContact() {
             });
 
             if (!response.ok) {
-                const result = await response.json()
-                setError(result.message)
+                const result = await response.json().catch(() => null) as { message?: string } | null
+                setError(result?.message ?? 'Parece que algo ha salido mal. Por favor, intenta nuevamente.')
                 setStatus('error')
                 clearTimeout(slowTimer)
                 return false

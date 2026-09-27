@@ -1,4 +1,4 @@
-export interface Contact {
+export interface PortfolioContact {
     id: number
     userId: number
     title: string
@@ -9,7 +9,7 @@ export interface Contact {
     isPrimary: boolean
 }
 
-export interface Project {
+export interface PortfolioProject {
     id: number
     userId: number
     title: string
@@ -21,7 +21,7 @@ export interface Project {
     demo?: string
 }
 
-export interface Skill {
+export interface PortfolioSkill {
     id: number
     userId: number
     title: string
@@ -30,15 +30,13 @@ export interface Skill {
     isPrimary: boolean
 }
 
-export interface User {
+export interface PortfolioContent {
     author: string
     tagLine: string
     profession: string
     shortBio: string
-    cvUrl: string
-    focus: string
     year: number
-    contacts: Contact[]
-    projects: Project[]
-    skills: Skill[]
+    contacts: PortfolioContact[]
+    projects: PortfolioProject[]
+    skills: PortfolioSkill[]
 }

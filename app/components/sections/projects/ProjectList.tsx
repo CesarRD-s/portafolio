@@ -2,7 +2,7 @@
 
 import { Alert } from '@/app/components/ui/Alert'
 import { Button } from '@/app/components/ui/Button'
-import { Project } from '@/app/modules/user_public/user.model'
+import type { PortfolioProject } from '@/app/lib/portfolio/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -10,7 +10,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { FaGithub } from 'react-icons/fa6'
 
 type Props = {
-    projects: Project[]
+    projects: PortfolioProject[]
 }
 
 export function ProjectList({ projects }: Props) {

@@ -1,11 +1,11 @@
-import { highlights } from "./config"
+import { principles } from './content'
 
-export function AboutHighlights() {
+export function AboutPrinciples() {
     return (
         <div className="w-full max-w-3xl mx-auto">
             <div className="flex flex-col items-center gap-10">
 
-                {highlights.map((item, index) => {
+                {principles.map((item, index) => {
                     const Icon = item.icon
 
                     return (
@@ -39,7 +39,7 @@ export function AboutHighlights() {
                             )}
 
                             {/* LINE */}
-                            {index !== highlights.length - 1 && (
+                            {index !== principles.length - 1 && (
                                 <div className="
                                     mt-6 h-12 w-px
                                     bg-neutral-200 dark:bg-neutral-800

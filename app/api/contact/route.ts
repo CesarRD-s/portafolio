@@ -1,4 +1,6 @@
 import { isEmail } from "@/app/utils/isEmail";
+import { ContactBackendError, sendContactMessage } from '@/app/lib/contact/server'
+import type { ContactPayload } from '@/app/lib/contact/types'
 import { NextRequest, NextResponse } from "next/server";
 import { isIP } from "node:net";
 
@@ -49,42 +51,31 @@ export async function POST(req: NextRequest) {
         return resp(false, `El mensaje no puede superar los ${MAX_MESSAGE_LENGTH} caracteres.`, 400)
     }
 
-    let response: Response
+    const payload: ContactPayload = { name, email, message }
+
     try {
-        response = await fetch(`${process.env.API_URL!}/contact`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': process.env.API_KEY!
-            },
-            body: JSON.stringify({ name, email, message })
-        })
-    } catch {
+        await sendContactMessage(payload)
+    } catch (error) {
+        if (error instanceof ContactBackendError) {
+            console.error('Error al enviar el mensaje de contacto:', {
+                status: error.status,
+                detail: error.detail,
+            })
+
+            if (error.status === 429) {
+                return resp(false, 'Parece que se ha excedido el límite de solicitudes. Por favor, intenta nuevamente más tarde.', 429)
+            }
+
+            if ((error.status === 400 || error.status === 422) && error.detail) {
+                return resp(false, error.detail, error.status)
+            }
+        }
+
         return resp(false, 'Parece que algo ha salido mal. Por favor, intenta nuevamente.', 500)
-    }
-
-    if (!response.ok) {
-        const data = await parseJson<{ error?: { message?: string } }>(response)
-        if (data) {
-            console.error('Error al enviar el mensaje de contacto:', data)
-        }
-
-        const status = response.status
-        if (status === 401 || status === 500) {
-            return resp(false, 'Parece que algo ha salido mal. Por favor, intenta nuevamente.', status)
-        }
-
-        if (status === 429) {
-            return resp(false, 'Parece que se ha excedido el límite de solicitudes. Por favor, intenta nuevamente más tarde.', status)
-        }
-
-        const message = data?.error?.message
-        return resp(false, message ?? 'Parece que algo ha salido mal. Por favor, intenta nuevamente.', status)
     }
 
     return resp(true, 'Tu mensaje ha sido enviado con éxito.', 200)
 }
-
 const resp = (success: boolean, message: string, statusCode: number) => {
     return NextResponse.json({ success, message }, { status: statusCode })
 }
@@ -138,14 +129,6 @@ const readJson = async (req: NextRequest): Promise<Record<string, unknown> | nul
     try {
         const body = await req.json()
         return body && typeof body === 'object' ? body : null
-    } catch {
-        return null
-    }
-}
-
-const parseJson = async <T>(response: Response): Promise<T | null> => {
-    try {
-        return await response.json()
     } catch {
         return null
     }

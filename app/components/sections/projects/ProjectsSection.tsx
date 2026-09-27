@@ -1,12 +1,12 @@
 import { Section } from "@/app/components/layout/Section"
-import { Project } from "@/app/modules/user_public/user.model"
-import { ProjectList } from "./components/ProjectList"
+import type { PortfolioProject } from '@/app/lib/portfolio/types'
+import { ProjectList } from './ProjectList'
 
 type Props = {
-    projects: Project[]
+    projects: PortfolioProject[]
 }
 
-export function ProjectsView({ projects }: Props) {
+export function ProjectsSection({ projects }: Props) {
     return (
         <Section
             id="projects"

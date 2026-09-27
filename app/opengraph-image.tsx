@@ -1,9 +1,9 @@
 import { ImageResponse } from 'next/og'
-import { SITE_URL } from './config/site'
+import { SITE_AUTHOR, SITE_DESCRIPTION, SITE_ROLE, SITE_TITLE } from './config/site'
 
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
-export const alt = 'César Reyes - Desarrollador Fullstack'
+export const alt = SITE_TITLE
 
 export default function OgImage() {
     return new ImageResponse(
@@ -23,13 +23,13 @@ export default function OgImage() {
                 }}
             >
                 <div style={{ fontSize: '76px', fontWeight: 800, letterSpacing: '-2px' }}>
-                    César Reyes
+                    {SITE_AUTHOR}
                 </div>
                 <div style={{ fontSize: '40px', marginTop: '20px', color: '#3b82f6', fontWeight: 600 }}>
-                    Desarrollador Fullstack
+                    {SITE_ROLE}
                 </div>
                 <div style={{ fontSize: '26px', marginTop: '48px', color: '#a3a3a3' }}>
-                    {SITE_URL}
+                    {SITE_DESCRIPTION}
                 </div>
             </div>
         ),

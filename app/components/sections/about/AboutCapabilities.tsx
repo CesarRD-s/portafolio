@@ -1,11 +1,11 @@
-import { metaItems } from "./config"
+import { capabilities } from './content'
 
-export function AboutMeta() {
+export function AboutCapabilities() {
     return (
         <div className="w-full max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-                {metaItems.map((item) => {
+                {capabilities.map((item) => {
                     const Icon = item.icon
 
                     return (
@@ -15,7 +15,7 @@ export function AboutMeta() {
                                 group flex flex-col items-start gap-4
                                 p-5 rounded-xl
                                 border border-neutral-200/70 dark:border-neutral-800/70
-                                bg-white/60 dark:bg-neutral-900/60 backdrop-blur-md transition
+                                bg-white/60 dark:bg-neutral-900/60 transition
                                 hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-md"
                         >
 

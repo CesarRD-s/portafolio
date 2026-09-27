@@ -1,7 +1,7 @@
 import { Section } from "@/app/components/layout/Section"
-import { ContactForm } from "./components/ContactForm"
+import { ContactForm } from './ContactForm'
 
-export function ContactView() {
+export function ContactSection() {
     return (
         <Section id="contact">
 

@@ -23,7 +23,7 @@ export interface MetaItem {
     icon: LucideIcon
 }
 
-export const highlights: HighlightItem[] = [
+export const principles: HighlightItem[] = [
     {
         id: 1,
         title: 'Solución a problemas',
@@ -50,7 +50,7 @@ export const highlights: HighlightItem[] = [
     }
 ]
 
-export const metaItems = [
+export const capabilities = [
     {
         id: 1,
         title: "Desarrollo backend",
