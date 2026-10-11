@@ -84,7 +84,7 @@ export function Navbar() {
                         </div>
 
                         <span className="font-semibold text-md md:text-lg tracking-tight text-neutral-900 dark:text-white">
-                            CésarDev
+                            César Reyes
                         </span>
                     </HashLink>
 

@@ -28,7 +28,7 @@ export function HeroSection({ portfolio }: Props) {
 
                     {/* SUBTITLE */}
                     <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-200">
-                        {portfolio.profession || 'Desarrollador Fullstack'}
+                        {portfolio.profession || 'Desarrollador de software'}
                     </h2>
 
                     {/* DESCRIPTION */}

@@ -36,12 +36,12 @@ export function Footer({ portfolio }: Props) {
                         </div>
 
                         <h3 className="text-lg font-medium tracking-tight text-neutral-900 dark:text-white">
-                            CésarDev
+                            César Reyes
                         </h3>
                     </div>
 
                     <p className="max-w-xs text-sm italic text-neutral-500 dark:text-neutral-400">
-                        &quot;Construyendo aplicaciones web modernas con tecnologías de vanguardia.&quot;
+                        &quot;La tecnología avanza; cada solución trae un nuevo desafío y una razón para seguir aprendiendo.&quot;
                     </p>
 
                 </div>
