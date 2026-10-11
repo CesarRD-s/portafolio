@@ -17,6 +17,7 @@ export const getSupabase = (): SupabaseClient => {
             global: {
                 fetch: (input, init) => fetch(input, {
                     ...init,
+                    cache: 'no-store',
                     signal: init?.signal ?? AbortSignal.timeout(5_000),
                 }),
             },
