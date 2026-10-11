@@ -17,7 +17,7 @@ Este espacio reúne mi experiencia, algunos de los proyectos en los que he traba
 - **Sobre mí** — experiencia, capacidades y tecnologías con las que trabajo.
 - **Contacto** — un formulario para iniciar una conversación.
 
-Los textos del perfil, proyectos, tecnologías y datos de contacto se administran desde el dashboard y se consultan directamente en cada solicitud pública.
+Los textos del perfil, proyectos, tecnologías y datos de contacto se administran desde el [dashboard del portafolio](https://github.com/CesarRD-s/dashboard-portafolio) y se consultan directamente en cada solicitud pública.
 
 ## Construido con
 
