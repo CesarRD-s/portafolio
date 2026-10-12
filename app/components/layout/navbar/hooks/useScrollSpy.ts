@@ -9,32 +9,54 @@ export function useScrollSpy(ids: string[]) {
     useEffect(() => {
         if (!ids.length) return
 
-        const elements = ids
-            .map(id => document.getElementById(id))
-            .filter((el): el is HTMLElement => Boolean(el))
+        let frame = 0
 
-        if (!elements.length) return
+        const updateActiveSection = () => {
+            if (frame) return
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const visible = entries.filter(e => e.isIntersecting)
-                if (!visible.length) return
+            frame = window.requestAnimationFrame(() => {
+                frame = 0
 
-                const mostVisible = visible.reduce((prev, curr) =>
-                    curr.intersectionRatio > prev.intersectionRatio ? curr : prev
+                const sections = ids
+                    .map(id => document.getElementById(id))
+                    .filter((section): section is HTMLElement => Boolean(section))
+
+                if (!sections.length) return
+
+                const scrollPosition = window.scrollY + Math.min(
+                    window.innerHeight * 0.35,
+                    280
                 )
+                const isAtPageEnd =
+                    window.scrollY + window.innerHeight >=
+                    document.documentElement.scrollHeight - 2
 
-                setActive(mostVisible.target.id)
-            },
-            {
-                rootMargin: '-35% 0px -55% 0px',
-                threshold: [0, 0.25, 0.5, 0.75, 1],
-            }
-        )
+                if (isAtPageEnd) {
+                    setActive(sections[sections.length - 1].id)
+                    return
+                }
 
-        elements.forEach(el => observer.observe(el))
+                const currentSection = sections.reduce((current, section) => {
+                    const sectionTop = section.getBoundingClientRect().top +
+                        window.scrollY
 
-        return () => observer.disconnect()
+                    return sectionTop <= scrollPosition ? section : current
+                }, sections[0])
+
+                setActive(currentSection.id)
+            })
+        }
+
+        updateActiveSection()
+        window.addEventListener('scroll', updateActiveSection, { passive: true })
+        window.addEventListener('resize', updateActiveSection)
+
+        return () => {
+            window.removeEventListener('scroll', updateActiveSection)
+            window.removeEventListener('resize', updateActiveSection)
+
+            if (frame) window.cancelAnimationFrame(frame)
+        }
     }, [ids])
 
     return active

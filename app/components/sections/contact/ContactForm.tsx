@@ -67,9 +67,9 @@ export function ContactForm() {
 
             {/* NAME */}
             <div className="flex flex-col gap-2">
-                <label htmlFor='name' className="text-sm text-neutral-500">
+                <label htmlFor='name' className="text-sm text-soft">
                     <span>Nombre y apellido</span>
-                    <span className="ml-1 text-red-500">*</span>
+                    <span className="ml-1 text-danger">*</span>
                 </label>
                 <input
                     id='name'
@@ -80,16 +80,16 @@ export function ContactForm() {
                     autoComplete="name"
                     maxLength={120}
                     required
-                    className="px-4 py-2 rounded-2xl border border-neutral-300 dark:border-neutral-700 
-                    bg-white/70 dark:bg-neutral-900/60 focus:outline-none focus:border-blue-500 transition"
+                    className="rounded-2xl border border-border bg-surface px-4 py-2
+                    transition focus:border-brand focus:outline-none"
                 />
             </div>
 
             {/* EMAIL */}
             <div className="flex flex-col gap-2">
-                <label htmlFor='email' className="text-sm text-neutral-500">
+                <label htmlFor='email' className="text-sm text-soft">
                     <span>Email</span>
-                    <span className="ml-1 text-red-500">*</span>
+                    <span className="ml-1 text-danger">*</span>
                 </label>
                 <input
                     id='email'
@@ -102,13 +102,14 @@ export function ContactForm() {
                     required
                     aria-invalid={emailError}
                     aria-describedby={emailError ? 'email-error' : undefined}
-                    className={`px-4 py-2 rounded-2xl border bg-white/70 dark:bg-neutral-900/60 focus:outline-none transition
+                    className={`rounded-2xl border bg-surface px-4 py-2 transition
+                        focus:outline-none
                         ${emailError
-                            ? 'border-red-500 focus:border-red-500'
-                            : 'border-neutral-300 dark:border-neutral-700 focus:border-blue-500'}`}
+                            ? 'border-danger focus:border-danger'
+                            : 'border-border focus:border-brand'}`}
                 />
                 {emailError && (
-                    <p id="email-error" role="alert" className="text-sm text-red-500">
+                    <p id="email-error" role="alert" className="text-sm text-danger">
                         Introduce una dirección de correo electrónico válida.
                     </p>
                 )}
@@ -116,9 +117,9 @@ export function ContactForm() {
 
             {/* MESSAGE */}
             <div className="flex flex-col gap-2">
-                <label htmlFor='message' className="text-sm text-neutral-500">
+                <label htmlFor='message' className="text-sm text-soft">
                     <span>Mensaje</span>
-                    <span className="ml-1 text-red-500">*</span>
+                    <span className="ml-1 text-danger">*</span>
                 </label>
                 <textarea
                     id='message'
@@ -128,17 +129,15 @@ export function ContactForm() {
                     maxLength={5000}
                     required
                     rows={5}
-                    className="px-4 py-2 rounded-2xl border border-neutral-300 dark:border-neutral-700 
-                    bg-white/70 dark:bg-neutral-900/60 focus:outline-none focus:border-blue-500 transition"
+                    className="rounded-2xl border border-border bg-surface px-4 py-2
+                    transition focus:border-brand focus:outline-none"
                 />
             </div>
 
             {/* BUTTON */}
             <Button
-                className='disabled:cursor-not-allowed 
-                disabled:bg-white/70 disabled:dark:bg-neutral-900/70 
-                disabled:border-neutral-300 disabled:dark:border-neutral-700
-                disabled:text-neutral-500 disabled:dark:text-neutral-500'
+                className='disabled:cursor-not-allowed disabled:border-border
+                disabled:bg-surface-subtle disabled:text-soft'
                 type='submit'
                 disabled={status === 'sending' || status === 'slow' || !isValid}
                 aria-busy={status === 'sending' || status === 'slow'}
@@ -150,15 +149,26 @@ export function ContactForm() {
 
                 {status === 'sending' && (<Alert type="info" message="Enviando mensaje..." />)}
 
-                {status === 'slow' && (<Alert type="warning" message="El servidor está iniciando, puede tardar unos segundos..." />)}
+                {status === 'slow' && (
+                    <Alert
+                        type="warning"
+                        message="El servidor está iniciando, puede tardar unos segundos..."
+                    />
+                )}
 
                 {status === 'success' && (<Alert type="success" message="Tu mensaje ha sido enviado con éxito." />)}
 
                 {status === 'error' && (<Alert type="error" message={error ?? 'Ocurrió un error inesperado'} />)}
 
                 {status !== 'idle' && (
-                    <button type='button' onClick={() => setStatus('idle')} aria-label="Cerrar aviso" className="cursor-pointer">
-                        <span className="absolute top-3 right-3 text-xs text-neutral-500 hover:text-neutral-500/80 cursor-pointer">
+                    <button
+                        type="button"
+                        onClick={() => setStatus('idle')}
+                        aria-label="Cerrar aviso"
+                        className="cursor-pointer"
+                    >
+                        <span className="absolute top-3 right-3 cursor-pointer text-xs
+                        text-soft hover:text-foreground">
                             <X size={18} />
                         </span>
                     </button>

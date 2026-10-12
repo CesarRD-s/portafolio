@@ -19,7 +19,7 @@ export const Section = ({
     return (
         <section
             id={id}
-            className={`w-full flex items-center justify-center scroll-mt-20 py-24 md:py-32 ${className}`}
+            className={`flex w-full items-center justify-center py-16 md:py-24 ${className}`}
         >
             <Container>
 
@@ -27,13 +27,16 @@ export const Section = ({
                     <div className="mb-10 md:mb-12 max-w-3xl">
 
                         {title && (
-                            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 dark:text-white">
+                            <h2
+                                className="text-3xl font-semibold tracking-tight text-foreground
+                                md:text-4xl"
+                            >
                                 {title}
                             </h2>
                         )}
 
                         {description && (
-                            <p className="mt-3 text-neutral-600 dark:text-neutral-400">
+                            <p className="mt-3 text-muted">
                                 {description}
                             </p>
                         )}

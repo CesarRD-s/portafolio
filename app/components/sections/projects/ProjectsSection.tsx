@@ -10,8 +10,9 @@ export function ProjectsSection({ projects }: Props) {
     return (
         <Section
             id="projects"
-            title="Proyectos Destacados"
-            description="Una selección de proyectos que reflejan mi experiencia">
+            title="Proyectos"
+            className="py-20 md:py-28"
+        >
 
             {/* GRID */}
             <div className="flex flex-col gap-10">

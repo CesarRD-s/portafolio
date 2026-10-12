@@ -1,30 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-hover: var(--surface-hover);
+  --color-muted: var(--muted);
+  --color-soft: var(--soft);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-header-hover: var(--header-hover);
+  --color-header-overlay-text: var(--header-overlay-text);
+  --color-overlay: var(--overlay);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
   --font-sans: var(--font-fira-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 0.75rem);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  text-rendering: optimizeLegibility;
+}
+
+.hero-glow {
+  background: var(--hero-glow);
+}
+
+.hero-shade {
+  background: var(--hero-shade);
+}
+
+.hero-gradient {
+  background: var(--hero-gradient);
+}
+
+.hero-section {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.site-navbar {
+  color: var(--foreground);
+  background-color: var(--header-background);
+  backdrop-filter: blur(16px);
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    backdrop-filter 180ms ease;
+}
+
+.site-navbar[data-over-hero="true"] {
+  color: var(--header-overlay-text);
+  background-color: transparent;
+  backdrop-filter: none;
+}
+
+.site-navbar-link[data-over-hero="true"]:hover {
+  background-color: var(--header-hover);
+}
+
+.site-navbar-link[data-over-hero="false"]:hover {
+  background-color: var(--surface-hover);
+}
+
+.site-navbar-link[aria-current="true"][data-over-hero="false"] {
+  color: var(--brand);
+  background-color: var(--surface-hover);
+}
+
+.site-navbar-link[aria-current="true"][data-over-hero="true"] {
+  color: var(--header-overlay-text);
+  background-color: var(--header-hover);
+}
+
+.site-navbar-link:not([aria-current="true"]) {
+  opacity: 0.84;
+}
+
+.site-navbar-link[aria-current="true"] {
+  opacity: 1;
+}
+
+.site-navbar-button[data-over-hero="true"]:hover {
+  background-color: var(--header-hover);
+}
+
+.site-navbar-button[data-over-hero="false"]:hover {
+  background-color: var(--surface-hover);
 }
 
 .loader-fade {
@@ -43,7 +114,7 @@ body {
 
 @layer base {
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid #3b82f6;
+    outline: 2px solid var(--brand);
     outline-offset: 2px;
   }
 }

@@ -1,80 +1,72 @@
 'use client'
 
 import type { PortfolioSkill } from '@/app/lib/portfolio/types'
-import { Layers3 } from "lucide-react"
-import { useState } from "react"
-import { SkillCard } from "./SkillCard"
-import Image from "next/image"
-import { Button } from "@/app/components/ui/Button"
+import Image from 'next/image'
+import { useState } from 'react'
+import { SkillCard } from './SkillCard'
 
 interface Props {
     skills: PortfolioSkill[]
 }
 
 export function AboutStack({ skills }: Props) {
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState(false)
     const primary = skills.filter((skill) => skill.isPrimary)
+    const visibleSkills = primary.length > 0 ? primary : skills
 
     return (
-        <section className="w-full max-w-5xl mx-auto">
-            <div className="flex flex-col gap-8">
+        <section className="w-full">
+            <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end
+                sm:justify-between md:mb-16">
+                <h2 className="text-3xl font-semibold tracking-tight text-foreground
+                    sm:text-4xl">
+                    Tecnologías principales
+                </h2>
 
-                <div className="flex flex-col items-center text-center gap-4">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 
-                    text-xs font-medium tracking-[0.18em] uppercase text-blue-600 dark:text-blue-400">
-                        <Layers3 className="h-4 w-4" />
-                        Tecnologías y Herramientas
-                    </span>
-
-                    <div className="max-w-2xl space-y-3">
-                        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 dark:text-white">
-                            {isOpen ? "Todas las tecnologías" : "Tecnologías principales"}
-                        </h2>
-
-                        <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                            Un resumen de las tecnologías y herramientas que utilizo para construir aplicaciones
-                        </p>
-                    </div>
-                </div>
-
-                {!isOpen ? (
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                        {primary.map((skill) => (
-                            <div
-                                key={skill.id}
-                                className="group flex flex-col items-center gap-3 rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 
-                                bg-white/60 dark:bg-neutral-900/60 p-5 text-center transition 
-                                hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-md"
-                            >
-                                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-500 transition 
-                                group-hover:bg-blue-500/15">
-                                    <Image
-                                        src={skill.logoUrl}
-                                        alt={skill.title}
-                                        width={36}
-                                        height={36}
-                                        className="h-8 w-8 object-contain"
-                                    />
-                                </div>
-
-                                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-200">
-                                    {skill.title}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <SkillCard skills={skills} />
+                {skills.length > visibleSkills.length && (
+                    <button
+                        type="button"
+                        onClick={() => setIsOpen((current) => !current)}
+                        aria-expanded={isOpen}
+                        className="inline-flex min-h-11 w-fit cursor-pointer items-center
+                            rounded-full bg-surface-subtle px-5 text-sm font-semibold
+                            text-foreground transition-colors hover:bg-surface-hover
+                            focus-visible:outline-2 focus-visible:outline-offset-4
+                            focus-visible:outline-brand"
+                    >
+                        {isOpen ? 'Ver principales' : 'Ver todas las tecnologías'}
+                    </button>
                 )}
-
-                <div className="flex justify-center">
-                    <Button
-                        onClick={() => setIsOpen(prev => !prev)}
-                        action={isOpen ? "Tecnologías principales" : "Todas las tecnologías"}
-                    />
-                </div>
-
             </div>
+
+            {isOpen ? (
+                <SkillCard skills={skills} />
+            ) : (
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4
+                    lg:grid-cols-5">
+                    {visibleSkills.map((skill) => (
+                        <article
+                            key={skill.id}
+                            className="group flex min-h-32 flex-col justify-between
+                                rounded-2xl bg-surface-subtle p-4 transition-colors
+                                hover:bg-surface-hover sm:min-h-36 sm:p-5"
+                        >
+                            <Image
+                                src={skill.logoUrl}
+                                alt=""
+                                width={40}
+                                height={40}
+                                className="h-8 w-8 shrink-0 object-contain
+                                    transition-transform duration-200
+                                    group-hover:scale-105 sm:h-10 sm:w-10"
+                            />
+                            <span className="mt-6 text-sm font-medium text-foreground">
+                                {skill.title}
+                            </span>
+                        </article>
+                    ))}
+                </div>
+            )}
         </section>
     )
 }

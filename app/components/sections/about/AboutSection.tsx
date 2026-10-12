@@ -1,5 +1,4 @@
 import type { PortfolioContent } from '@/app/lib/portfolio/types'
-import { Section } from "@/app/components/layout/Section"
 import { AboutHeader } from './AboutHeader'
 import { AboutCapabilities } from './AboutCapabilities'
 import { AboutStack } from './AboutStack'
@@ -10,12 +9,20 @@ type Props = {
 
 export function AboutSection({ portfolio }: Props) {
     return (
-        <Section id="about-me">
-            <div className="flex flex-col items-center gap-14 md:gap-16">
+        <section id="about-me" className="w-full pt-24 md:pt-36">
+            <div className="mx-auto max-w-7xl px-6 md:px-8">
                 <AboutHeader portfolio={portfolio} />
-                <AboutCapabilities />
+            </div>
+
+            <div className="mt-24 bg-surface-subtle py-20 md:mt-36 md:py-28">
+                <div className="mx-auto max-w-7xl px-6 md:px-8">
+                    <AboutCapabilities />
+                </div>
+            </div>
+
+            <div className="mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-36">
                 <AboutStack skills={portfolio.skills} />
             </div>
-        </Section>
+        </section>
     )
 }

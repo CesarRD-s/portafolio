@@ -1,16 +1,37 @@
 'use client'
 
-import { MouseEvent, ReactNode } from 'react'
+import type {
+    AnchorHTMLAttributes,
+    MouseEvent,
+} from 'react'
 
-type Props = {
+type Props = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
     href: string
-    children: ReactNode
-    className?: string
     onNavigate?: (id: string) => void
 }
 
-export function HashLink({ href, children, className, onNavigate }: Props) {
+export function HashLink({
+    href,
+    children,
+    onClick,
+    onNavigate,
+    ...anchorProps
+}: Props) {
     const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+        onClick?.(e)
+
+        if (
+            e.defaultPrevented ||
+            e.button !== 0 ||
+            e.metaKey ||
+            e.ctrlKey ||
+            e.shiftKey ||
+            e.altKey ||
+            (anchorProps.target && anchorProps.target !== '_self')
+        ) {
+            return
+        }
+
         const id = href.replace('#', '')
         const el = document.getElementById(id)
         if (!el) return
@@ -27,7 +48,11 @@ export function HashLink({ href, children, className, onNavigate }: Props) {
     }
 
     return (
-        <a href={href} onClick={handleClick} className={className}>
+        <a
+            {...anchorProps}
+            href={href}
+            onClick={handleClick}
+        >
             {children}
         </a>
     )

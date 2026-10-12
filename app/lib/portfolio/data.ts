@@ -1,5 +1,6 @@
 import 'server-only'
 
+import { SITE_AUTHOR } from '@/app/config/site'
 import { getSupabase } from '@/app/lib/supabase/server'
 import type {
     PortfolioContact,
@@ -9,7 +10,6 @@ import type {
 } from './types'
 
 type ProfileRow = {
-    author: string | null
     tag_line: string | null
     profession: string | null
     short_bio: string | null
@@ -49,7 +49,7 @@ export async function getPublicPortfolio(): Promise<PortfolioContent | null> {
     const [profile, projects, skills, contacts] = await Promise.all([
         supabase
             .from('profiles')
-            .select('author, tag_line, profession, short_bio, year')
+            .select('tag_line, profession, short_bio, year')
             .maybeSingle<ProfileRow>(),
         supabase
             .from('projects')
@@ -85,7 +85,7 @@ export async function getPublicPortfolio(): Promise<PortfolioContent | null> {
     }
 
     return {
-        author: profile.data.author ?? 'César Reyes de Dios',
+        author: SITE_AUTHOR,
         tagLine: profile.data.tag_line ?? '',
         profession: profile.data.profession ?? 'Desarrollador de software',
         shortBio: profile.data.short_bio ?? '',

@@ -7,27 +7,27 @@ import { useRouter } from "next/navigation";
 export default function NotFound() {
     const router = useRouter()
     return (
-        <div className="flex min-h-screen items-center justify-center px-6 bg-neutral-50 dark:bg-neutral-950 transition-colors">
+        <div className="flex min-h-screen items-center justify-center bg-background px-6 transition-colors">
 
             <div className="text-center max-w-md">
 
                 {/* Icono */}
                 <div className="flex justify-center mb-6">
-                    <SearchX className="w-16 h-16 text-blue-500/75" />
+                    <SearchX className="h-16 w-16 text-brand" />
                 </div>
 
                 {/* Código */}
-                <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-2">
+                <h1 className="mb-2 text-6xl font-bold text-foreground">
                     404
                 </h1>
 
                 {/* Título */}
-                <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <h2 className="mb-2 text-xl font-semibold text-foreground">
                     Página no encontrada
                 </h2>
 
                 {/* Descripción */}
-                <p className="text-gray-500 dark:text-gray-400 mb-6">
+                <p className="mb-6 text-muted">
                     Parece que esta ruta no existe o fue movida.
                     Puedes regresar a la página anterior o volver al inicio.
                 </p>
@@ -37,7 +37,9 @@ export default function NotFound() {
 
                     <Link
                         href="/"
-                        className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600/75 text-white hover:bg-blue-700  transition-all duration-200 shadow-sm hover:shadow-md"
+                        className="flex items-center gap-2 rounded-md bg-brand-strong px-4
+                        py-2 text-header-overlay-text shadow-sm transition hover:bg-brand
+                        hover:shadow-md"
                     >
                         <Home size={18} />
                         Ir al inicio
@@ -45,8 +47,8 @@ export default function NotFound() {
 
                     <button
                         onClick={() => router.back()}
-                        className="flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 
-                       hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 cursor-pointer"
+                        className="flex cursor-pointer items-center gap-2 rounded-md border
+                        border-border px-4 py-2 text-foreground transition hover:bg-surface-hover"
                     >
                         <ArrowLeft size={18} />
                         Regresar
@@ -55,7 +57,7 @@ export default function NotFound() {
                 </div>
 
                 {/* Línea decorativa */}
-                <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-blue-500/40 to-transparent" />
+                <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
 
             </div>
         </div>

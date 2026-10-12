@@ -2,51 +2,40 @@ import { capabilities } from './content'
 
 export function AboutCapabilities() {
     return (
-        <div className="w-full max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <section className="w-full">
+            <h2 className="mb-14 text-3xl font-semibold tracking-tight text-foreground
+                sm:text-4xl md:mb-20">
+                Áreas de trabajo
+            </h2>
 
+            <div className="grid gap-x-12 gap-y-14 md:grid-cols-3 md:gap-x-14">
                 {capabilities.map((item) => {
                     const Icon = item.icon
 
                     return (
-                        <div
+                        <article
                             key={item.id}
-                            className="
-                                group flex flex-col items-start gap-4
-                                p-5 rounded-xl
-                                border border-neutral-200/70 dark:border-neutral-800/70
-                                bg-white/60 dark:bg-neutral-900/60 transition
-                                hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-md"
+                            className="min-h-56"
                         >
-
-                            {/* ICON */}
-                            <div className="
-                                flex items-center justify-center
-                                w-11 h-11 rounded-xl
-                                bg-blue-500/10 text-blue-500 transition
-                                group-hover:bg-blue-500/20"
-                            >
-                                <Icon size={18} />
+                            <div className="flex h-12 w-12 items-center justify-center
+                                rounded-2xl bg-surface text-brand">
+                                <Icon
+                                    className="h-5 w-5 text-brand"
+                                    aria-hidden="true"
+                                />
                             </div>
 
-                            {/* CONTENT */}
-                            <div className="flex flex-col gap-1 text-left">
-
-                                <p className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white">
-                                    {item.title}
-                                </p>
-
-                                <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-                                    {item.description}
-                                </p>
-
-                            </div>
-
-                        </div>
+                            <h3 className="mt-8 text-xl font-semibold tracking-tight
+                                text-foreground sm:text-2xl">
+                                {item.title}
+                            </h3>
+                            <p className="mt-4 max-w-sm text-base leading-7 text-muted">
+                                {item.description}
+                            </p>
+                        </article>
                     )
                 })}
-
             </div>
-        </div>
+        </section>
     )
 }

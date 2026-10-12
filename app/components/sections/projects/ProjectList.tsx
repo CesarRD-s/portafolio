@@ -23,89 +23,103 @@ export function ProjectList({ projects }: Props) {
             {!projects.length ? (
                 <Alert type="info" message='Aún no hay proyectos para mostrar' />
             ) : (
-                projectsToShow.map((project => (
-                    <div
-                        key={project.id}
-                        className="group flex flex-col md:grid md:grid-cols-3 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800
-                            bg-white dark:bg-neutral-900 transition hover:-translate-y-[3px] hover:shadow-lg"
-                    >
+                <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
+                    {projectsToShow.map(project => (
+                        <article
+                            key={project.id}
+                            className="group grid overflow-hidden rounded-2xl bg-surface-subtle
+                            transition-colors hover:bg-surface-hover
+                            md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]"
+                        >
 
-                        {/* IMAGE */}
-                        <div className="relative h-40 w-full md:size-full overflow-hidden">
-                            <Image
-                                src={project.imgUrl}
-                                alt={project.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 450px"
-                                className="object-cover"
-                            />
-                        </div>
-
-                        {/* CONTENT */}
-                        <div className="md:col-span-2 p-5 flex flex-col gap-4">
-
-                            {/* TITLE */}
-                            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
-                                {project.title}
-                            </h3>
-
-                            {/* DESCRIPTION */}
-                            <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-4">
-                                {project.description}
-                            </p>
-
-                            {/* STACK */}
-                            <div className="flex flex-wrap gap-2">
-                                {project.stack.map((tech, index) => (
-                                    <span
-                                        key={index}
-                                        className="
-                                            text-xs px-2 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
-                                        {tech}
-                                    </span>
-                                ))}
+                            {/* IMAGE */}
+                            <div
+                                className="relative aspect-[16/10] w-full overflow-hidden bg-surface
+                                md:aspect-auto md:min-h-[260px]"
+                            >
+                                <Image
+                                    src={project.imgUrl}
+                                    alt={project.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 38vw"
+                                    className="object-cover transition duration-500 group-hover:scale-[1.025]"
+                                />
                             </div>
 
-                            {/* ROLE */}
-                            <p className="text-xs text-neutral-500">
-                                Rol: {project.role}
-                            </p>
+                            {/* CONTENT */}
+                            <div className="flex flex-col gap-3 p-5 sm:p-7">
 
-                            {/* CTA */}
-                            {(project.repo || project.demo) && (
-                                <div className="mt-2 flex flex-wrap gap-4">
-                                    {project.repo && (
-                                        <Link
-                                            href={project.repo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
-                                            <FaGithub size={14} />
-                                            Repositorio
-                                        </Link>
-                                    )}
+                                {/* TITLE */}
+                                <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                                    {project.title}
+                                </h3>
 
-                                    {project.demo && (
-                                        <Link
-                                            href={project.demo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
-                                            Demo
-                                            <ArrowUpRight size={14} />
-                                        </Link>
-                                    )}
+                                {/* DESCRIPTION */}
+                                <p
+                                    className="line-clamp-4 text-sm leading-relaxed text-muted"
+                                >
+                                    {project.description}
+                                </p>
+
+                                {/* STACK */}
+                                <div className="flex flex-wrap gap-2">
+                                    {project.stack.map((tech, index) => (
+                                        <span
+                                            key={index}
+                                            className="rounded-full bg-surface px-2.5 py-1 text-xs
+                                            font-medium text-muted"
+                                        >
+                                            {tech}
+                                        </span>
+                                    ))}
                                 </div>
-                            )}
 
-                        </div>
+                                {/* ROLE */}
+                                <p
+                                    className="pt-1 text-xs text-soft"
+                                >
+                                    Rol: {project.role}
+                                </p>
 
-                    </div>
-                )))
+                                {/* CTA */}
+                                {(project.repo || project.demo) && (
+                                    <div className="flex flex-wrap gap-5">
+                                        {project.repo && (
+                                            <Link
+                                                href={project.repo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 text-sm font-semibold
+                                                text-brand transition hover:underline"
+                                            >
+                                                <FaGithub size={14} />
+                                                Repositorio
+                                            </Link>
+                                        )}
+
+                                        {project.demo && (
+                                            <Link
+                                                href={project.demo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 text-sm font-semibold
+                                                text-brand transition hover:underline"
+                                            >
+                                                Demo
+                                                <ArrowUpRight size={14} />
+                                            </Link>
+                                        )}
+                                    </div>
+                                )}
+
+                            </div>
+                        </article>
+                    ))}
+                </div>
             )}
 
             {projects.length > 2 && (
-                <div className="flex justify-center mt-4">
+                <div className="mt-6 flex justify-center">
                     <Button
                         onClick={() => setShowMore(prev => !prev)}
                         action={showMore ? 'Mostrar menos' : 'Mostrar todos'}

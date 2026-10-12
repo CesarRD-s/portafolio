@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import { SITE_DESCRIPTION, SITE_LOCALE, SITE_NAME, SITE_OG_IMAGE, SITE_TITLE, SITE_URL } from './config/site'
 import './globals.css'
+import './theme.css'
 
 const firaSans = localFont({
     src: [
@@ -57,8 +58,8 @@ export const metadata: Metadata = {
 }
 export const viewport: Viewport = {
     themeColor: [
-        { media: '(prefers-color-scheme: light)', color: '#f5f5f5' },
-        { media: '(prefers-color-scheme: dark)', color: '#171717' },
+        { media: '(prefers-color-scheme: light)', color: '#f5f7fb' },
+        { media: '(prefers-color-scheme: dark)', color: '#090d16' },
     ],
 }
 

@@ -7,10 +7,10 @@ type AlertProps = {
 
 export function Alert({ type = 'info', message }: AlertProps) {
     const styles = {
-        info: 'border-2 border-blue-500/10 text-blue-500/80',
-        success: 'border-2 border-green-500/10 text-green-500/80',
-        error: 'border-2 border-red-500/10 text-red-500/80',
-        warning: 'border-2 border-yellow-500/10 text-yellow-500/80',
+        info: 'border-2 border-brand/20 text-brand',
+        success: 'border-2 border-success/20 text-success',
+        error: 'border-2 border-danger/20 text-danger',
+        warning: 'border-2 border-warning/20 text-warning',
     }
 
     const Icon: Record<AlertProps['type'], LucideIcon> = {

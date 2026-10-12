@@ -8,7 +8,7 @@ export default function Page() {
     const portfolio = getPublicPortfolio()
 
     return (
-        <main className="min-h-screen bg-neutral-100 dark:bg-neutral-900/50">
+        <main className="min-h-screen bg-background text-foreground">
             <Header />
             <PortfolioContent portfolio={portfolio} />
         </main>
