@@ -152,7 +152,7 @@ export function ContactForm() {
                 {status === 'slow' && (
                     <Alert
                         type="warning"
-                        message="El servidor está iniciando, puede tardar unos segundos..."
+                        message="Estamos preparando el formulario; puede tardar hasta un minuto..."
                     />
                 )}
 

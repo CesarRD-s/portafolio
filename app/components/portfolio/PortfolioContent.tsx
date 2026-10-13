@@ -1,6 +1,7 @@
 import { SITE_URL } from '@/app/config/site'
 import { AboutSection } from '@/app/components/sections/about/AboutSection'
 import { ContactSection } from '@/app/components/sections/contact/ContactSection'
+import { ContactApiWarmup } from '@/app/components/portfolio/ContactApiWarmup'
 import { HeroSection } from '@/app/components/sections/HeroSection'
 import { ProjectsSection } from '@/app/components/sections/projects/ProjectsSection'
 import { Footer } from '@/app/components/layout/Footer'
@@ -52,6 +53,7 @@ export async function PortfolioContent({ portfolio }: Props) {
 
     return (
         <>
+            <ContactApiWarmup />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdString }}
