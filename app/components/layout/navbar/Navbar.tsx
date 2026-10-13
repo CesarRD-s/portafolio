@@ -31,8 +31,14 @@ export function Navbar() {
             const hero = document.getElementById('home')
             const navbar = document.querySelector('.site-navbar')
             const headerHeight = navbar?.getBoundingClientRect().height ?? 64
+            const scrollPaddingTop = Number.parseFloat(
+                window.getComputedStyle(document.documentElement).scrollPaddingTop
+            )
+            const heroBoundary = Number.isFinite(scrollPaddingTop)
+                ? Math.max(headerHeight, scrollPaddingTop)
+                : headerHeight
             const hasPassedHero = hero
-                ? hero.getBoundingClientRect().bottom <= headerHeight
+                ? hero.getBoundingClientRect().bottom <= heroBoundary
                 : window.scrollY > 24
 
             setIsScrolled(hasPassedHero)
@@ -45,14 +51,22 @@ export function Navbar() {
     }, [])
 
     useEffect(() => {
-        if (!active) return
+        if (!manualActive) return
 
-        const timeout = window.setTimeout(() => {
-            setManualActive('')
-        }, 0)
+        let timeout = window.setTimeout(() => setManualActive(''), 4_000)
 
-        return () => window.clearTimeout(timeout)
-    }, [active])
+        const onScroll = () => {
+            window.clearTimeout(timeout)
+            timeout = window.setTimeout(() => setManualActive(''), 250)
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true })
+
+        return () => {
+            window.clearTimeout(timeout)
+            window.removeEventListener('scroll', onScroll)
+        }
+    }, [manualActive])
 
     useEffect(() => {
         const onResize = () => {
@@ -206,7 +220,7 @@ export function Navbar() {
                                     closeMenu()
                                 }}
                                 aria-current={isActive ? 'true' : undefined}
-                                className={`inline-flex items-center rounded-full px-5 py-2.5
+                                className={`inline-flex items-center gap-3 rounded-full px-5 py-2.5
                                     text-sm transition focus-visible:outline-2
                                     focus-visible:outline-offset-2 focus-visible:outline-brand
                                     ${isActive ? 'text-brand' : 'hover:bg-surface-hover'}`}

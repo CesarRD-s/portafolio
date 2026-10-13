@@ -23,10 +23,9 @@ export function useScrollSpy(ids: string[]) {
 
                 if (!sections.length) return
 
-                const scrollPosition = window.scrollY + Math.min(
-                    window.innerHeight * 0.35,
-                    280
-                )
+                const headerHeight = document.querySelector('.site-navbar')
+                    ?.getBoundingClientRect().height ?? 64
+                const scrollPosition = window.scrollY + headerHeight + 24
                 const isAtPageEnd =
                     window.scrollY + window.innerHeight >=
                     document.documentElement.scrollHeight - 2
@@ -51,9 +50,19 @@ export function useScrollSpy(ids: string[]) {
         window.addEventListener('scroll', updateActiveSection, { passive: true })
         window.addEventListener('resize', updateActiveSection)
 
+        const resizeObserver = typeof ResizeObserver === 'undefined'
+            ? null
+            : new ResizeObserver(updateActiveSection)
+        resizeObserver?.observe(document.documentElement)
+        ids.forEach(id => {
+            const section = document.getElementById(id)
+            if (section) resizeObserver?.observe(section)
+        })
+
         return () => {
             window.removeEventListener('scroll', updateActiveSection)
             window.removeEventListener('resize', updateActiveSection)
+            resizeObserver?.disconnect()
 
             if (frame) window.cancelAnimationFrame(frame)
         }
